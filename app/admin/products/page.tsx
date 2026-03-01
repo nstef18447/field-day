@@ -4,6 +4,101 @@ import { useEffect, useState } from "react";
 import type { Product } from "@/app/types";
 import ProductForm from "../components/ProductForm";
 
+const styles = {
+  pageHeader: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 24,
+  } as React.CSSProperties,
+  pageTitle: {
+    fontFamily: '"Caveat Brush", cursive',
+    fontSize: "1.8rem",
+    color: "#5c622b",
+    margin: 0,
+  } as React.CSSProperties,
+  btnPrimary: {
+    background: "#5c622b",
+    color: "#fff8ed",
+    border: "none",
+    padding: "10px 20px",
+    borderRadius: 8,
+    fontFamily: '"Caveat Brush", cursive',
+    fontSize: "1rem",
+    cursor: "pointer",
+  } as React.CSSProperties,
+  table: {
+    width: "100%",
+    borderCollapse: "collapse" as const,
+    background: "#fff8ed",
+    borderRadius: 12,
+    overflow: "hidden",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+  } as React.CSSProperties,
+  th: {
+    textAlign: "left" as const,
+    padding: "12px 16px",
+    fontSize: "0.8rem",
+    textTransform: "uppercase" as const,
+    letterSpacing: 1,
+    color: "#888",
+    borderBottom: "2px solid #e0d8cb",
+    background: "#fff8ed",
+  } as React.CSSProperties,
+  td: {
+    padding: "12px 16px",
+    borderBottom: "1px solid #f0e8db",
+    fontSize: "0.9rem",
+  } as React.CSSProperties,
+  empty: {
+    textAlign: "center" as const,
+    color: "#888",
+    padding: 32,
+  } as React.CSSProperties,
+  toggleOn: {
+    padding: "3px 10px",
+    borderRadius: 12,
+    border: "none",
+    fontSize: "0.75rem",
+    fontWeight: 600,
+    cursor: "pointer",
+    background: "#d4edda",
+    color: "#155724",
+  } as React.CSSProperties,
+  toggleOff: {
+    padding: "3px 10px",
+    borderRadius: 12,
+    border: "none",
+    fontSize: "0.75rem",
+    fontWeight: 600,
+    cursor: "pointer",
+    background: "#f0d0d0",
+    color: "#721c24",
+  } as React.CSSProperties,
+  btnSm: {
+    background: "none",
+    border: "1px solid #5c622b",
+    color: "#5c622b",
+    padding: "4px 12px",
+    borderRadius: 6,
+    cursor: "pointer",
+    fontSize: "0.8rem",
+  } as React.CSSProperties,
+  btnDanger: {
+    background: "none",
+    border: "1px solid #c44",
+    color: "#c44",
+    padding: "4px 12px",
+    borderRadius: 6,
+    cursor: "pointer",
+    fontSize: "0.8rem",
+  } as React.CSSProperties,
+  actions: {
+    display: "flex",
+    gap: 8,
+  } as React.CSSProperties,
+};
+
 export default function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -46,10 +141,10 @@ export default function AdminProductsPage() {
 
   return (
     <div>
-      <div className="admin-page-header">
-        <h2>Products</h2>
+      <div style={styles.pageHeader}>
+        <h2 style={styles.pageTitle}>Products</h2>
         <button
-          className="admin-btn-primary"
+          style={styles.btnPrimary}
           onClick={() => {
             setEditing(null);
             setShowForm(true);
@@ -60,41 +155,42 @@ export default function AdminProductsPage() {
       </div>
 
       {loading ? (
-        <p className="admin-loading">Loading products...</p>
+        <p style={{ color: "#888", fontStyle: "italic", padding: "32px 0" }}>
+          Loading products...
+        </p>
       ) : (
-        <table className="admin-table">
+        <table style={styles.table}>
           <thead>
             <tr>
-              <th>Emoji</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Badge</th>
-              <th>Category</th>
-              <th>Active</th>
-              <th>Actions</th>
+              <th style={styles.th}>Emoji</th>
+              <th style={styles.th}>Name</th>
+              <th style={styles.th}>Price</th>
+              <th style={styles.th}>Badge</th>
+              <th style={styles.th}>Category</th>
+              <th style={styles.th}>Active</th>
+              <th style={styles.th}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {products.map((p) => (
-              <tr key={p.id} className={!p.is_active ? "admin-row-inactive" : ""}>
-                <td>{p.emoji}</td>
-                <td>{p.name}</td>
-                <td>{p.price}</td>
-                <td>{p.badge || "—"}</td>
-                <td>{p.category || "—"}</td>
-                <td>
+              <tr key={p.id} style={!p.is_active ? { opacity: 0.5 } : {}}>
+                <td style={styles.td}>{p.emoji}</td>
+                <td style={styles.td}>{p.name}</td>
+                <td style={styles.td}>{p.price}</td>
+                <td style={styles.td}>{p.badge || "—"}</td>
+                <td style={styles.td}>{p.category || "—"}</td>
+                <td style={styles.td}>
                   <button
-                    className={`admin-toggle ${p.is_active ? "on" : "off"}`}
+                    style={p.is_active ? styles.toggleOn : styles.toggleOff}
                     onClick={() => handleToggleActive(p)}
-                    title={p.is_active ? "Deactivate" : "Activate"}
                   >
                     {p.is_active ? "On" : "Off"}
                   </button>
                 </td>
-                <td>
-                  <div className="admin-actions">
+                <td style={styles.td}>
+                  <div style={styles.actions}>
                     <button
-                      className="admin-btn-sm"
+                      style={styles.btnSm}
                       onClick={() => {
                         setEditing(p);
                         setShowForm(true);
@@ -103,7 +199,7 @@ export default function AdminProductsPage() {
                       Edit
                     </button>
                     <button
-                      className="admin-btn-sm admin-btn-danger"
+                      style={styles.btnDanger}
                       onClick={() => handleDelete(p.id)}
                     >
                       Delete
@@ -114,7 +210,7 @@ export default function AdminProductsPage() {
             ))}
             {products.length === 0 && (
               <tr>
-                <td colSpan={7} className="admin-empty">
+                <td colSpan={7} style={styles.empty}>
                   No products yet. Click &quot;New Product&quot; to add one.
                 </td>
               </tr>

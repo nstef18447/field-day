@@ -17,6 +17,12 @@ interface OrderData {
   }[];
 }
 
+const th: React.CSSProperties = {
+  textAlign: "left", padding: "12px 16px", fontSize: "0.8rem",
+  textTransform: "uppercase", letterSpacing: 1, color: "#888",
+  borderBottom: "2px solid #e0d8cb", background: "#fff8ed",
+};
+
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<OrderData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -36,37 +42,31 @@ export default function AdminOrdersPage() {
 
   return (
     <div>
-      <div className="admin-page-header">
-        <h2>Orders</h2>
+      <div style={{ display: "flex", alignItems: "center", marginBottom: 24 }}>
+        <h2 style={{ fontFamily: '"Caveat Brush", cursive', fontSize: "1.8rem", color: "#5c622b", margin: 0 }}>Orders</h2>
       </div>
 
       {loading ? (
-        <p className="admin-loading">Loading orders...</p>
+        <p style={{ color: "#888", fontStyle: "italic", padding: "32px 0" }}>Loading orders...</p>
       ) : (
-        <table className="admin-table">
+        <table style={{ width: "100%", borderCollapse: "collapse", background: "#fff8ed", borderRadius: 12, overflow: "hidden", boxShadow: "0 2px 8px rgba(0,0,0,0.05)" }}>
           <thead>
             <tr>
-              <th>Order ID</th>
-              <th>Email</th>
-              <th>Total</th>
-              <th>Status</th>
-              <th>Date</th>
-              <th>Update</th>
+              <th style={th}>Order ID</th>
+              <th style={th}>Email</th>
+              <th style={th}>Total</th>
+              <th style={th}>Status</th>
+              <th style={th}>Date</th>
+              <th style={th}>Update</th>
             </tr>
           </thead>
           <tbody>
             {orders.map((order) => (
-              <OrderRow
-                key={order.id}
-                order={order}
-                onStatusChange={loadOrders}
-              />
+              <OrderRow key={order.id} order={order} onStatusChange={loadOrders} />
             ))}
             {orders.length === 0 && (
               <tr>
-                <td colSpan={6} className="admin-empty">
-                  No orders yet.
-                </td>
+                <td colSpan={6} style={{ textAlign: "center", color: "#888", padding: 32 }}>No orders yet.</td>
               </tr>
             )}
           </tbody>
