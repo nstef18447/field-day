@@ -385,10 +385,10 @@ body:has(.admin-layout)::before { display: none !important; }
 
 /* ---- ADMIN SIDEBAR ---- */
 .admin-sidebar {
-  width: 240px; min-height: 100vh;
+  width: 240px !important; min-width: 240px; min-height: 100vh;
   background: var(--color-olive-dark); color: var(--color-cream);
-  display: flex; flex-direction: column;
-  flex-shrink: 0;
+  display: flex !important; flex-direction: column;
+  flex-shrink: 0; overflow: visible;
 }
 .admin-sidebar-brand {
   font-family: var(--font-display); font-size: 1.6rem;
@@ -675,10 +675,10 @@ body:has(.admin-layout)::before { display: none !important; }
 
 /* ---- ADMIN RESPONSIVE ---- */
 @media (max-width: 768px) {
-  .admin-sidebar { width: 60px; }
+  .admin-sidebar { width: 60px !important; min-width: 60px; }
   .admin-sidebar-brand { font-size: 0; padding: 16px; }
   .admin-sidebar-link { padding: 12px; justify-content: center; }
-  .admin-sidebar-link span:not(.admin-sidebar-icon) { display: none; }
+  .admin-sidebar-label { display: none; }
   .admin-sidebar-link.active { border-right: none; border-left: 3px solid var(--color-gold); }
   .admin-content { padding: 16px; }
   .admin-form-row { flex-direction: column; }

@@ -25,7 +25,7 @@ export default function AdminSidebar() {
             }`}
           >
             <span className="admin-sidebar-icon">{link.icon}</span>
-            {link.label}
+            <span className="admin-sidebar-label">{link.label}</span>
           </Link>
         ))}
       </nav>
