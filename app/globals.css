@@ -377,7 +377,11 @@ footer { background: var(--color-olive-dark); color: var(--color-cream); padding
 .admin-layout {
   display: flex; min-height: 100vh;
   font-family: var(--font-body);
+  position: relative; z-index: 200;
 }
+/* Hide main site elements when in admin */
+body:has(.admin-layout) > nav { display: none !important; }
+body:has(.admin-layout)::before { display: none !important; }
 
 /* ---- ADMIN SIDEBAR ---- */
 .admin-sidebar {
