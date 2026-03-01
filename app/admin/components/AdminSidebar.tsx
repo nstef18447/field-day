@@ -36,7 +36,7 @@ export default function AdminSidebar() {
       >
         Field Day
       </div>
-      <nav style={{ display: "flex", flexDirection: "column", padding: "16px 0" }}>
+      <div style={{ display: "flex", flexDirection: "column", padding: "16px 0" }}>
         {links.map((link) => (
           <Link
             key={link.href}
@@ -58,7 +58,7 @@ export default function AdminSidebar() {
             {link.label}
           </Link>
         ))}
-      </nav>
+      </div>
     </aside>
   );
 }
