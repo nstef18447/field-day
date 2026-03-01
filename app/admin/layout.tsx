@@ -17,11 +17,11 @@ export default function AdminLayout({
   }
 
   return (
-    <div className="admin-layout">
+    <div style={{ display: "flex", minHeight: "100vh", position: "relative", zIndex: 200 }}>
       <AdminSidebar />
-      <div className="admin-main">
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", background: "#f5f0e8", minHeight: "100vh" }}>
         <AdminHeader />
-        <div className="admin-content">{children}</div>
+        <div style={{ padding: 32, flex: 1 }}>{children}</div>
       </div>
     </div>
   );

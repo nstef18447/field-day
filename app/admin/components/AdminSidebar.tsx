@@ -13,19 +13,49 @@ export default function AdminSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="admin-sidebar">
-      <div className="admin-sidebar-brand">Field Day</div>
-      <nav className="admin-sidebar-nav">
+    <aside
+      style={{
+        width: 240,
+        minWidth: 240,
+        minHeight: "100vh",
+        background: "#4a4f22",
+        color: "#fff8ed",
+        display: "flex",
+        flexDirection: "column",
+        flexShrink: 0,
+      }}
+    >
+      <div
+        style={{
+          fontFamily: '"Caveat Brush", cursive',
+          fontSize: "1.6rem",
+          padding: "24px 20px",
+          color: "#c9b83a",
+          borderBottom: "1px solid rgba(255,248,237,0.1)",
+        }}
+      >
+        Field Day
+      </div>
+      <nav style={{ display: "flex", flexDirection: "column", padding: "16px 0" }}>
         {links.map((link) => (
           <Link
             key={link.href}
             href={link.href}
-            className={`admin-sidebar-link ${
-              pathname === link.href ? "active" : ""
-            }`}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              padding: "12px 20px",
+              color: "#fff8ed",
+              textDecoration: "none",
+              fontSize: "0.95rem",
+              background: pathname === link.href ? "rgba(255,248,237,0.12)" : "transparent",
+              borderRight: pathname === link.href ? "3px solid #c9b83a" : "none",
+              fontWeight: pathname === link.href ? 600 : 400,
+            }}
           >
-            <span className="admin-sidebar-icon">{link.icon}</span>
-            <span className="admin-sidebar-label">{link.label}</span>
+            <span style={{ fontSize: "1.1rem" }}>{link.icon}</span>
+            {link.label}
           </Link>
         ))}
       </nav>
