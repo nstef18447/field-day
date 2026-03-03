@@ -1,14 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCart } from "@/app/context/CartContext";
+import EmbeddedCheckoutForm from "./EmbeddedCheckoutForm";
 
 export default function CartDrawer() {
   const { items, removeFromCart, updateQuantity, cartTotal, isOpen, setIsOpen } = useCart();
   const [checkingOut, setCheckingOut] = useState(false);
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [checkoutError, setCheckoutError] = useState("");
+
+  // Reset checkout state when drawer closes
+  useEffect(() => {
+    if (!isOpen) {
+      setClientSecret(null);
+      setCheckoutError("");
+    }
+  }, [isOpen]);
 
   async function handleCheckout() {
     setCheckingOut(true);
+    setCheckoutError("");
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
@@ -16,28 +28,52 @@ export default function CartDrawer() {
         body: JSON.stringify({ items }),
       });
       const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
+      if (!res.ok) {
+        setCheckoutError(data.error || "Checkout failed");
+        setCheckingOut(false);
+        return;
       }
+      if (data.clientSecret) {
+        setClientSecret(data.clientSecret);
+      }
+      setCheckingOut(false);
     } catch {
+      setCheckoutError("Something went wrong. Please try again.");
       setCheckingOut(false);
     }
   }
+
+  function handleBackToCart() {
+    setClientSecret(null);
+    setCheckoutError("");
+  }
+
+  const isCheckoutMode = !!clientSecret;
 
   return (
     <>
       {isOpen && (
         <div className="cart-overlay" onClick={() => setIsOpen(false)} />
       )}
-      <div className={`cart-drawer ${isOpen ? "cart-drawer-open" : ""}`}>
+      <div className={`cart-drawer ${isOpen ? "cart-drawer-open" : ""} ${isCheckoutMode ? "cart-drawer-wide" : ""}`}>
         <div className="cart-drawer-header">
-          <h2 className="cart-drawer-title">Your Cart</h2>
+          <h2 className="cart-drawer-title">
+            {isCheckoutMode ? "Checkout" : "Your Cart"}
+          </h2>
           <button className="cart-drawer-close" onClick={() => setIsOpen(false)}>
             ×
           </button>
         </div>
 
-        {items.length === 0 ? (
+        {isCheckoutMode ? (
+          /* ── Embedded Stripe Checkout ── */
+          <div className="cart-checkout-wrap">
+            <button className="cart-back-btn" onClick={handleBackToCart}>
+              ← Back to Cart
+            </button>
+            <EmbeddedCheckoutForm clientSecret={clientSecret} />
+          </div>
+        ) : items.length === 0 ? (
           <p className="cart-drawer-empty">Your cart is empty</p>
         ) : (
           <>
@@ -86,12 +122,17 @@ export default function CartDrawer() {
                 <span>Total</span>
                 <span>${(cartTotal / 100).toFixed(2)}</span>
               </div>
+
+              {checkoutError && (
+                <p className="cart-checkout-error">{checkoutError}</p>
+              )}
+
               <button
                 className="cart-checkout-btn"
                 onClick={handleCheckout}
                 disabled={checkingOut}
               >
-                {checkingOut ? "Redirecting..." : "Checkout"}
+                {checkingOut ? "Processing..." : "Checkout"}
               </button>
             </div>
           </>

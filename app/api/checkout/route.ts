@@ -19,6 +19,7 @@ export async function POST(request: Request) {
   const origin = new URL(request.url).origin;
 
   const session = await stripe.checkout.sessions.create({
+    ui_mode: "embedded",
     mode: "payment",
     line_items: items.map((item) => ({
       price_data: {
@@ -28,9 +29,8 @@ export async function POST(request: Request) {
       },
       quantity: item.quantity,
     })),
-    success_url: `${origin}/?checkout=success`,
-    cancel_url: `${origin}/?checkout=cancel`,
+    return_url: `${origin}/?checkout=success`,
   });
 
-  return NextResponse.json({ url: session.url });
+  return NextResponse.json({ clientSecret: session.client_secret });
 }

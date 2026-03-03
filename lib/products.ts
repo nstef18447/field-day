@@ -23,3 +23,33 @@ export async function getProducts(): Promise<Product[]> {
     max_custom_chars: p.max_custom_chars ?? 0,
   }));
 }
+
+export async function getProductById(id: string): Promise<Product | null> {
+  const numId = parseInt(id, 10);
+  if (isNaN(numId)) return null;
+
+  if (!supabase) {
+    return localProducts.find((p) => p.id === numId) ?? null;
+  }
+
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .eq("id", numId)
+    .eq("is_active", true)
+    .single();
+
+  if (error || !data) {
+    return localProducts.find((p) => p.id === numId) ?? null;
+  }
+
+  return {
+    id: data.id,
+    name: data.name,
+    description: data.description ?? "",
+    price_cents: data.price_cents,
+    badge: data.badge ?? undefined,
+    images: data.images ?? [],
+    max_custom_chars: data.max_custom_chars ?? 0,
+  };
+}
