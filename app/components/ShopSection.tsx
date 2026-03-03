@@ -1,7 +1,9 @@
-import { products } from "@/app/data/products";
+import { getProducts } from "@/lib/products";
 import ProductCard from "./ProductCard";
 
-export default function ShopSection() {
+export default async function ShopSection() {
+  const products = await getProducts();
+
   return (
     <section className="shop-section" id="shop">
       <h2 className="section-title reveal">Shop</h2>
