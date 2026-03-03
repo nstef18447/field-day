@@ -13,14 +13,22 @@ interface ProductFormProps {
 const emptyProduct = {
   name: "",
   description: "",
-  emoji: "",
-  price: "",
-  price_cents: 0,
+  price_dollars: "",
   badge: "",
-  category: "",
+  max_custom_chars: 0,
   is_active: true,
   images: [] as string[],
 };
+
+function centsToDollars(cents: number): string {
+  return (cents / 100).toFixed(2);
+}
+
+function dollarsToCents(dollars: string): number {
+  const parsed = parseFloat(dollars);
+  if (isNaN(parsed)) return 0;
+  return Math.round(parsed * 100);
+}
 
 export default function ProductForm({ product, onSave, onClose }: ProductFormProps) {
   const [form, setForm] = useState(
@@ -28,11 +36,9 @@ export default function ProductForm({ product, onSave, onClose }: ProductFormPro
       ? {
           name: product.name,
           description: product.description,
-          emoji: product.emoji,
-          price: product.price,
-          price_cents: product.price_cents || 0,
+          price_dollars: centsToDollars(product.price_cents),
           badge: product.badge || "",
-          category: product.category || "",
+          max_custom_chars: product.max_custom_chars || 0,
           is_active: product.is_active ?? true,
           images: product.images || [],
         }
@@ -56,10 +62,20 @@ export default function ProductForm({ product, onSave, onClose }: ProductFormPro
         : "/api/admin/products";
       const method = product ? "PUT" : "POST";
 
+      const payload = {
+        name: form.name,
+        description: form.description,
+        price_cents: dollarsToCents(form.price_dollars),
+        badge: form.badge,
+        max_custom_chars: form.badge === "Customizable" ? form.max_custom_chars : 0,
+        is_active: form.is_active,
+        images: form.images,
+      };
+
       const res = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
       });
 
       if (res.ok) {
@@ -83,24 +99,14 @@ export default function ProductForm({ product, onSave, onClose }: ProductFormPro
           <button onClick={onClose} className="admin-modal-close">×</button>
         </div>
         <form onSubmit={handleSubmit} className="admin-product-form">
-          <div className="admin-form-row">
-            <div className="admin-form-group">
-              <label>Name</label>
-              <input
-                type="text"
-                value={form.name}
-                onChange={(e) => updateField("name", e.target.value)}
-                required
-              />
-            </div>
-            <div className="admin-form-group">
-              <label>Emoji</label>
-              <input
-                type="text"
-                value={form.emoji}
-                onChange={(e) => updateField("emoji", e.target.value)}
-              />
-            </div>
+          <div className="admin-form-group">
+            <label>Name</label>
+            <input
+              type="text"
+              value={form.name}
+              onChange={(e) => updateField("name", e.target.value)}
+              required
+            />
           </div>
 
           <div className="admin-form-group">
@@ -114,26 +120,16 @@ export default function ProductForm({ product, onSave, onClose }: ProductFormPro
 
           <div className="admin-form-row">
             <div className="admin-form-group">
-              <label>Price (display)</label>
+              <label>Price ($)</label>
               <input
                 type="text"
-                value={form.price}
-                onChange={(e) => updateField("price", e.target.value)}
-                placeholder="$12"
+                inputMode="decimal"
+                value={form.price_dollars}
+                onChange={(e) => updateField("price_dollars", e.target.value)}
+                placeholder="12.00"
                 required
               />
             </div>
-            <div className="admin-form-group">
-              <label>Price (cents)</label>
-              <input
-                type="number"
-                value={form.price_cents}
-                onChange={(e) => updateField("price_cents", parseInt(e.target.value) || 0)}
-              />
-            </div>
-          </div>
-
-          <div className="admin-form-row">
             <div className="admin-form-group">
               <label>Badge</label>
               <select
@@ -145,15 +141,19 @@ export default function ProductForm({ product, onSave, onClose }: ProductFormPro
                 <option value="Coming Soon">Coming Soon</option>
               </select>
             </div>
+          </div>
+
+          {form.badge === "Customizable" && (
             <div className="admin-form-group">
-              <label>Category</label>
+              <label>Max Characters</label>
               <input
-                type="text"
-                value={form.category}
-                onChange={(e) => updateField("category", e.target.value)}
+                type="number"
+                min={1}
+                value={form.max_custom_chars}
+                onChange={(e) => updateField("max_custom_chars", parseInt(e.target.value) || 0)}
               />
             </div>
-          </div>
+          )}
 
           <div className="admin-form-group">
             <label className="admin-toggle-label">

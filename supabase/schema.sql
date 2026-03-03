@@ -3,18 +3,15 @@ create table products (
   id serial primary key,
   name text not null,
   description text,
-  emoji text,
   price_cents integer not null default 0,
-  price text not null default '$0',
   badge text,
   images text[] default '{}',
-  category text,
+  max_custom_chars integer not null default 0,
   is_active boolean not null default true,
   created_at timestamptz not null default now()
 );
 
 create index idx_products_active on products (is_active);
-create index idx_products_category on products (category);
 
 -- Orders
 create table orders (
@@ -35,7 +32,8 @@ create table order_items (
   order_id uuid not null references orders(id) on delete cascade,
   product_id integer not null references products(id),
   quantity integer not null default 1,
-  price_cents integer not null default 0
+  price_cents integer not null default 0,
+  customization_text text
 );
 
 create index idx_order_items_order on order_items (order_id);

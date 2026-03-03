@@ -7,7 +7,7 @@ interface OrderItem {
   id: string;
   quantity: number;
   price_cents: number;
-  products: { name: string; emoji: string } | null;
+  products: { name: string } | null;
 }
 
 interface OrderData {
@@ -90,7 +90,7 @@ export default function OrderRow({ order, onStatusChange }: OrderRowProps) {
                     {order.order_items.map((item) => (
                       <tr key={item.id}>
                         <td>
-                          {item.products?.emoji} {item.products?.name || "Unknown"}
+                          {item.products?.name || "Unknown"}
                         </td>
                         <td>{item.quantity}</td>
                         <td>${(item.price_cents / 100).toFixed(2)}</td>

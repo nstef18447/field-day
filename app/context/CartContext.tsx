@@ -79,12 +79,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const cartCount = state.items.reduce((sum, i) => sum + i.quantity, 0);
 
-  const cartTotal = state.items.reduce((sum, i) => {
-    const cents =
-      i.product.price_cents ??
-      parseInt(i.product.price.replace(/[^0-9]/g, ""), 10) * 100;
-    return sum + cents * i.quantity;
-  }, 0);
+  const cartTotal = state.items.reduce(
+    (sum, i) => sum + i.product.price_cents * i.quantity,
+    0
+  );
 
   return (
     <CartContext.Provider

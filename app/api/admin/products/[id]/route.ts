@@ -11,18 +11,16 @@ export async function PUT(
 
   const { id } = await params;
   const body = await request.json();
-  const { name, description, emoji, price, price_cents, badge, category, is_active, images } = body;
+  const { name, description, price_cents, badge, max_custom_chars, is_active, images } = body;
 
   const { data, error } = await supabaseAdmin
     .from("products")
     .update({
       name,
       description,
-      emoji,
-      price,
       price_cents,
       badge: badge || null,
-      category: category || null,
+      max_custom_chars: max_custom_chars || 0,
       is_active,
       images: images || [],
     })

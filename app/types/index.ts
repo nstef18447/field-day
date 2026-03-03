@@ -1,21 +1,19 @@
 export interface Product {
   id: number;
-  emoji: string;
   name: string;
   description: string;
-  price: string;
+  price_cents: number;
   badge?: string;
-  // Supabase-ready fields (optional for backward compat)
   images?: string[];
-  category?: string;
+  max_custom_chars?: number;
   is_active?: boolean;
-  price_cents?: number;
   created_at?: string;
 }
 
 export interface CartItem {
   product: Product;
   quantity: number;
+  customization_text?: string;
 }
 
 export interface Order {
@@ -33,6 +31,7 @@ export interface OrderItem {
   product_id: number;
   quantity: number;
   price_cents: number;
+  customization_text?: string;
 }
 
 export interface ContactSubmission {

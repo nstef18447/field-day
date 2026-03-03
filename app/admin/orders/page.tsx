@@ -13,7 +13,7 @@ interface OrderData {
     id: string;
     quantity: number;
     price_cents: number;
-    products: { name: string; emoji: string } | null;
+    products: { name: string } | null;
   }[];
 }
 

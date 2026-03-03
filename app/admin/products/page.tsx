@@ -99,6 +99,10 @@ const styles = {
   } as React.CSSProperties,
 };
 
+function formatPrice(cents: number): string {
+  return `$${(cents / 100).toFixed(2)}`;
+}
+
 export default function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -162,11 +166,9 @@ export default function AdminProductsPage() {
         <table style={styles.table}>
           <thead>
             <tr>
-              <th style={styles.th}>Emoji</th>
               <th style={styles.th}>Name</th>
               <th style={styles.th}>Price</th>
               <th style={styles.th}>Badge</th>
-              <th style={styles.th}>Category</th>
               <th style={styles.th}>Active</th>
               <th style={styles.th}>Actions</th>
             </tr>
@@ -174,11 +176,14 @@ export default function AdminProductsPage() {
           <tbody>
             {products.map((p) => (
               <tr key={p.id} style={!p.is_active ? { opacity: 0.5 } : {}}>
-                <td style={styles.td}>{p.emoji}</td>
                 <td style={styles.td}>{p.name}</td>
-                <td style={styles.td}>{p.price}</td>
-                <td style={styles.td}>{p.badge || "—"}</td>
-                <td style={styles.td}>{p.category || "—"}</td>
+                <td style={styles.td}>{formatPrice(p.price_cents)}</td>
+                <td style={styles.td}>
+                  {p.badge || "—"}
+                  {p.badge === "Customizable" && p.max_custom_chars
+                    ? ` (${p.max_custom_chars} chars)`
+                    : ""}
+                </td>
                 <td style={styles.td}>
                   <button
                     style={p.is_active ? styles.toggleOn : styles.toggleOff}
@@ -210,7 +215,7 @@ export default function AdminProductsPage() {
             ))}
             {products.length === 0 && (
               <tr>
-                <td colSpan={7} style={styles.empty}>
+                <td colSpan={5} style={styles.empty}>
                   No products yet. Click &quot;New Product&quot; to add one.
                 </td>
               </tr>

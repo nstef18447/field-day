@@ -24,18 +24,16 @@ export async function POST(request: NextRequest) {
   }
 
   const body = await request.json();
-  const { name, description, emoji, price, price_cents, badge, category, is_active, images } = body;
+  const { name, description, price_cents, badge, max_custom_chars, is_active, images } = body;
 
   const { data, error } = await supabaseAdmin
     .from("products")
     .insert({
       name,
       description,
-      emoji,
-      price,
       price_cents: price_cents || 0,
       badge: badge || null,
-      category: category || null,
+      max_custom_chars: max_custom_chars || 0,
       is_active: is_active ?? true,
       images: images || [],
     })

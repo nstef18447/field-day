@@ -15,10 +15,11 @@ export async function getProducts(): Promise<Product[]> {
 
   return data.map((p) => ({
     id: p.id,
-    emoji: p.emoji ?? "",
     name: p.name,
     description: p.description ?? "",
-    price: p.price,
+    price_cents: p.price_cents,
     badge: p.badge ?? undefined,
+    images: p.images ?? [],
+    max_custom_chars: p.max_custom_chars ?? 0,
   }));
 }
