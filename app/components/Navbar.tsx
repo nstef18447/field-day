@@ -8,7 +8,7 @@ import { useCart } from "@/app/context/CartContext";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const { cartCount } = useCart();
+  const { cartCount, setIsOpen } = useCart();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -36,7 +36,7 @@ export default function Navbar() {
           <li><Link href="/#about" onClick={closeMenu}>About</Link></li>
           <li><Link href="/#contact" onClick={closeMenu}>Contact</Link></li>
         </ul>
-        <div className="cart-icon-wrap">
+        <div className="cart-icon-wrap" onClick={() => setIsOpen(true)}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
             <line x1="3" y1="6" x2="21" y2="6" />
