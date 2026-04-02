@@ -21,7 +21,7 @@ const styles = {
     zIndex: 1000,
   },
   panel: {
-    background: "#fff8ed",
+    background: "#f0efe0",
     borderRadius: 16,
     width: "90%",
     maxWidth: 900,
@@ -37,9 +37,9 @@ const styles = {
     borderBottom: "1px solid #e0d8cb",
   },
   title: {
-    fontFamily: '"Caveat Brush", cursive',
+    fontFamily: '"Luckiest Guy", cursive',
     fontSize: "1.4rem",
-    color: "#5c622b",
+    color: "#04324b",
     margin: 0,
   },
   body: {
@@ -88,8 +88,8 @@ const styles = {
   },
   btnSm: {
     background: "none",
-    border: "1px solid #5c622b",
-    color: "#5c622b",
+    border: "1px solid #04324b",
+    color: "#04324b",
     padding: "3px 10px",
     borderRadius: 6,
     cursor: "pointer",
@@ -115,7 +115,7 @@ const styles = {
     cursor: "pointer",
     color: "#888",
     fontSize: "0.9rem",
-    fontFamily: '"Caveat Brush", cursive',
+    fontFamily: '"Luckiest Guy", cursive',
     transition: "border-color 0.2s, color 0.2s",
   },
   noPhoto: {
@@ -230,8 +230,8 @@ export default function VariantManager({ productId, productName, onClose }: Vari
                   setShowForm(true);
                 }}
                 onMouseOver={(e) => {
-                  e.currentTarget.style.borderColor = "#5c622b";
-                  e.currentTarget.style.color = "#5c622b";
+                  e.currentTarget.style.borderColor = "#04324b";
+                  e.currentTarget.style.color = "#04324b";
                 }}
                 onMouseOut={(e) => {
                   e.currentTarget.style.borderColor = "#bbb";

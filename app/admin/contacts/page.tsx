@@ -6,7 +6,7 @@ import type { ContactSubmission } from "@/app/types";
 const th: React.CSSProperties = {
   textAlign: "left", padding: "12px 16px", fontSize: "0.8rem",
   textTransform: "uppercase", letterSpacing: 1, color: "#888",
-  borderBottom: "2px solid #e0d8cb", background: "#fff8ed",
+  borderBottom: "2px solid #e0d8cb", background: "#f0efe0",
 };
 const td: React.CSSProperties = {
   padding: "12px 16px", borderBottom: "1px solid #f0e8db", fontSize: "0.9rem",
@@ -31,13 +31,13 @@ export default function AdminContactsPage() {
   return (
     <div>
       <div style={{ display: "flex", alignItems: "center", marginBottom: 24 }}>
-        <h2 style={{ fontFamily: '"Caveat Brush", cursive', fontSize: "1.8rem", color: "#5c622b", margin: 0 }}>Contact Submissions</h2>
+        <h2 style={{ fontFamily: '"Luckiest Guy", cursive', fontSize: "1.8rem", color: "#04324b", margin: 0 }}>Contact Submissions</h2>
       </div>
 
       {loading ? (
         <p style={{ color: "#888", fontStyle: "italic", padding: "32px 0" }}>Loading contacts...</p>
       ) : (
-        <table style={{ width: "100%", borderCollapse: "collapse", background: "#fff8ed", borderRadius: 12, overflow: "hidden", boxShadow: "0 2px 8px rgba(0,0,0,0.05)" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", background: "#f0efe0", borderRadius: 12, overflow: "hidden", boxShadow: "0 2px 8px rgba(0,0,0,0.05)" }}>
           <thead>
             <tr>
               <th style={th}>Name</th>

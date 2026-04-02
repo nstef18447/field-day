@@ -24,7 +24,7 @@ export default function Navbar() {
         <Link href="/#home">
           <Image
             className="nav-logo"
-            src="/images/field-day-logo.svg"
+            src="/images/field-day-logo.png"
             alt="Field Day"
             width={56}
             height={56}

@@ -18,8 +18,8 @@ export default function AdminSidebar() {
         width: 240,
         minWidth: 240,
         minHeight: "100vh",
-        background: "#4a4f22",
-        color: "#fff8ed",
+        background: "#032a3d",
+        color: "#f0efe0",
         display: "flex",
         flexDirection: "column",
         flexShrink: 0,
@@ -27,10 +27,10 @@ export default function AdminSidebar() {
     >
       <div
         style={{
-          fontFamily: '"Caveat Brush", cursive',
+          fontFamily: '"Luckiest Guy", cursive',
           fontSize: "1.6rem",
           padding: "24px 20px",
-          color: "#c9b83a",
+          color: "#a4cea6",
           borderBottom: "1px solid rgba(255,248,237,0.1)",
         }}
       >
@@ -46,11 +46,11 @@ export default function AdminSidebar() {
               alignItems: "center",
               gap: 12,
               padding: "12px 20px",
-              color: "#fff8ed",
+              color: "#f0efe0",
               textDecoration: "none",
               fontSize: "0.95rem",
               background: pathname === link.href ? "rgba(255,248,237,0.12)" : "transparent",
-              borderRight: pathname === link.href ? "3px solid #c9b83a" : "none",
+              borderRight: pathname === link.href ? "3px solid #a4cea6" : "none",
               fontWeight: pathname === link.href ? 600 : 400,
             }}
           >

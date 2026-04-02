@@ -128,7 +128,7 @@ export default function VariantForm({ productId, variant, onSave, onClose }: Var
           <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
             {/* Live Preview */}
             <div style={{ flex: "1 1 260px", minWidth: 260 }}>
-              <label style={{ fontSize: "0.85rem", fontWeight: 600, color: "#5c622b", marginBottom: 8, display: "block" }}>
+              <label style={{ fontSize: "0.85rem", fontWeight: 600, color: "#04324b", marginBottom: 8, display: "block" }}>
                 Live Preview
               </label>
               <div
@@ -287,7 +287,7 @@ export default function VariantForm({ productId, variant, onSave, onClose }: Var
 
           {/* Position & Size controls */}
           <div style={{ borderTop: "1px solid #e0d8cb", paddingTop: 16 }}>
-            <label style={{ fontSize: "0.85rem", fontWeight: 600, color: "#5c622b", marginBottom: 12, display: "block" }}>
+            <label style={{ fontSize: "0.85rem", fontWeight: 600, color: "#04324b", marginBottom: 12, display: "block" }}>
               Character Position &amp; Size
             </label>
             <div className="admin-form-row">

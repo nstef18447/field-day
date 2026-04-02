@@ -7,10 +7,10 @@ export default function Hero() {
         <div className="hero-logo-wrap">
           <Image
             className="hero-logo"
-            src="/images/field-day-logo.svg"
+            src="/images/field-day-logo.png"
             alt="Field Day"
-            width={300}
-            height={300}
+            width={305}
+            height={305}
             priority
           />
         </div>

@@ -17,15 +17,15 @@ export default function AdminHeader() {
         alignItems: "center",
         justifyContent: "space-between",
         padding: "16px 32px",
-        background: "#fff8ed",
+        background: "#f0efe0",
         borderBottom: "1px solid #e0d8cb",
       }}
     >
       <h1
         style={{
-          fontFamily: '"Caveat Brush", cursive',
+          fontFamily: '"Luckiest Guy", cursive',
           fontSize: "1.3rem",
-          color: "#5c622b",
+          color: "#04324b",
           margin: 0,
         }}
       >
@@ -35,8 +35,8 @@ export default function AdminHeader() {
         onClick={handleLogout}
         style={{
           background: "none",
-          border: "1px solid #5c622b",
-          color: "#5c622b",
+          border: "1px solid #04324b",
+          color: "#04324b",
           padding: "6px 16px",
           borderRadius: 6,
           cursor: "pointer",

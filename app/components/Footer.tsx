@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="footer-brand">
           <Image
             className="footer-logo"
-            src="/images/field-day-logo.svg"
+            src="/images/field-day-logo.png"
             alt="Field Day"
             width={80}
             height={80}

@@ -7,7 +7,7 @@ const values = [
 export default function AboutSection() {
   return (
     <>
-      <div className="scallop-bottom-olive"></div>
+      <div className="scallop-bottom-navy"></div>
       <section className="about-section" id="about">
         <div className="about-inner">
           <h2 className="section-title reveal">Our Story</h2>

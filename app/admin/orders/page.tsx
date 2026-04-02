@@ -20,7 +20,7 @@ interface OrderData {
 const th: React.CSSProperties = {
   textAlign: "left", padding: "12px 16px", fontSize: "0.8rem",
   textTransform: "uppercase", letterSpacing: 1, color: "#888",
-  borderBottom: "2px solid #e0d8cb", background: "#fff8ed",
+  borderBottom: "2px solid #e0d8cb", background: "#f0efe0",
 };
 
 export default function AdminOrdersPage() {
@@ -43,13 +43,13 @@ export default function AdminOrdersPage() {
   return (
     <div>
       <div style={{ display: "flex", alignItems: "center", marginBottom: 24 }}>
-        <h2 style={{ fontFamily: '"Caveat Brush", cursive', fontSize: "1.8rem", color: "#5c622b", margin: 0 }}>Orders</h2>
+        <h2 style={{ fontFamily: '"Luckiest Guy", cursive', fontSize: "1.8rem", color: "#04324b", margin: 0 }}>Orders</h2>
       </div>
 
       {loading ? (
         <p style={{ color: "#888", fontStyle: "italic", padding: "32px 0" }}>Loading orders...</p>
       ) : (
-        <table style={{ width: "100%", borderCollapse: "collapse", background: "#fff8ed", borderRadius: 12, overflow: "hidden", boxShadow: "0 2px 8px rgba(0,0,0,0.05)" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", background: "#f0efe0", borderRadius: 12, overflow: "hidden", boxShadow: "0 2px 8px rgba(0,0,0,0.05)" }}>
           <thead>
             <tr>
               <th style={th}>Order ID</th>

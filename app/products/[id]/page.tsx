@@ -30,9 +30,9 @@ export default async function ProductDetailPage({ params }: Props) {
             <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 32px" }}>
               <span className="badge" style={{
                 display: "inline-block",
-                background: "#c97a4a",
+                background: "#04324b",
                 color: "#fff",
-                fontFamily: '"Caveat Brush", cursive',
+                fontFamily: '"Luckiest Guy", cursive',
                 fontSize: "0.85rem",
                 padding: "4px 14px",
                 borderRadius: 20,
