@@ -3,9 +3,10 @@
 import Link from "next/link";
 import type { Product } from "@/app/types";
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({ product, fallbackImage }: { product: Product; fallbackImage?: string }) {
   const isComingSoon = product.badge === "Coming Soon";
   const price = `$${(product.price_cents / 100).toFixed(2)}`;
+  const displayImage = (product.images && product.images.length > 0) ? product.images[0] : fallbackImage;
 
   return (
     <Link
@@ -15,8 +16,8 @@ export default function ProductCard({ product }: { product: Product }) {
     >
       {product.badge && <span className="badge">{product.badge}</span>}
       <div className="product-img-wrap">
-        {product.images && product.images.length > 0 ? (
-          <img src={product.images[0]} alt={product.name} className="product-img" />
+        {displayImage ? (
+          <img src={displayImage} alt={product.name} className="product-img" />
         ) : (
           <span className="product-emoji">🏷️</span>
         )}
