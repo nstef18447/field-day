@@ -84,7 +84,13 @@ export default function CartDrawer() {
                   <div key={`${item.product.id}-${i}`} className="cart-item">
                     <div className="cart-item-info">
                       <span className="cart-item-name">{item.product.name}</span>
-                      {item.customization_text && (
+                      {item.variant_name && (
+                        <span className="cart-item-custom">
+                          {item.variant_name}
+                          {item.selected_character ? ` — "${item.selected_character}"` : ""}
+                        </span>
+                      )}
+                      {item.customization_text && !item.variant_name && (
                         <span className="cart-item-custom">
                           &ldquo;{item.customization_text}&rdquo;
                         </span>
@@ -94,20 +100,20 @@ export default function CartDrawer() {
                     <div className="cart-item-actions">
                       <button
                         className="cart-qty-btn"
-                        onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
+                        onClick={() => updateQuantity(item.product.id, item.quantity - 1, item.variant_id, item.selected_character)}
                       >
                         −
                       </button>
                       <span className="cart-qty">{item.quantity}</span>
                       <button
                         className="cart-qty-btn"
-                        onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
+                        onClick={() => updateQuantity(item.product.id, item.quantity + 1, item.variant_id, item.selected_character)}
                       >
                         +
                       </button>
                       <button
                         className="cart-remove-btn"
-                        onClick={() => removeFromCart(item.product.id)}
+                        onClick={() => removeFromCart(item.product.id, item.variant_id, item.selected_character)}
                       >
                         ✕
                       </button>

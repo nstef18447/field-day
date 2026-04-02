@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { Product } from "@/app/types";
 import ProductForm from "../components/ProductForm";
+import VariantManager from "../components/VariantManager";
 
 const styles = {
   pageHeader: {
@@ -108,6 +109,7 @@ export default function AdminProductsPage() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState<Product | null>(null);
+  const [variantProduct, setVariantProduct] = useState<Product | null>(null);
 
   async function loadProducts() {
     setLoading(true);
@@ -196,6 +198,12 @@ export default function AdminProductsPage() {
                   <div style={styles.actions}>
                     <button
                       style={styles.btnSm}
+                      onClick={() => setVariantProduct(p)}
+                    >
+                      Color Schemes
+                    </button>
+                    <button
+                      style={styles.btnSm}
                       onClick={() => {
                         setEditing(p);
                         setShowForm(true);
@@ -232,6 +240,14 @@ export default function AdminProductsPage() {
             setShowForm(false);
             setEditing(null);
           }}
+        />
+      )}
+
+      {variantProduct && (
+        <VariantManager
+          productId={variantProduct.id}
+          productName={variantProduct.name}
+          onClose={() => setVariantProduct(null)}
         />
       )}
     </div>

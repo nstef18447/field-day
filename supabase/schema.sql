@@ -33,10 +33,34 @@ create table order_items (
   product_id integer not null references products(id),
   quantity integer not null default 1,
   price_cents integer not null default 0,
-  customization_text text
+  customization_text text,
+  variant_id integer references product_variants(id),
+  variant_name text,
+  selected_character text
 );
 
 create index idx_order_items_order on order_items (order_id);
+
+-- Product variants (color schemes for customizable products)
+create table product_variants (
+  id serial primary key,
+  product_id integer not null references products(id) on delete cascade,
+  name text not null,
+  photo text,
+  character_font text not null default 'Lilita One',
+  character_color text not null default '#FFFFFF',
+  character_stroke_color text,
+  character_stroke_width numeric(4,1) default 0,
+  character_position_x numeric(5,2) not null default 50,
+  character_position_y numeric(5,2) not null default 50,
+  character_size numeric(5,2) not null default 20,
+  is_active boolean not null default true,
+  sort_order integer not null default 0,
+  created_at timestamptz not null default now()
+);
+
+create index idx_variants_product on product_variants (product_id);
+create index idx_variants_active on product_variants (product_id, is_active);
 
 -- Contact submissions
 create table contact_submissions (

@@ -10,10 +10,30 @@ export interface Product {
   created_at?: string;
 }
 
+export interface ProductVariant {
+  id: number;
+  product_id: number;
+  name: string;
+  photo?: string;
+  character_font: string;
+  character_color: string;
+  character_stroke_color?: string;
+  character_stroke_width?: number;
+  character_position_x: number;
+  character_position_y: number;
+  character_size: number;
+  is_active?: boolean;
+  sort_order: number;
+  created_at?: string;
+}
+
 export interface CartItem {
   product: Product;
   quantity: number;
   customization_text?: string;
+  variant_id?: number;
+  variant_name?: string;
+  selected_character?: string;
 }
 
 export interface Order {
@@ -32,6 +52,9 @@ export interface OrderItem {
   quantity: number;
   price_cents: number;
   customization_text?: string;
+  variant_id?: number;
+  variant_name?: string;
+  selected_character?: string;
 }
 
 export interface ContactSubmission {
