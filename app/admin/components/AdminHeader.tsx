@@ -23,7 +23,7 @@ export default function AdminHeader() {
     >
       <h1
         style={{
-          fontFamily: '"Luckiest Guy", cursive',
+          fontFamily: '"Barriecito", cursive',
           fontSize: "1.3rem",
           color: "#04324b",
           margin: 0,

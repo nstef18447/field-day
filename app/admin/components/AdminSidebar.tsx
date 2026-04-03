@@ -27,7 +27,7 @@ export default function AdminSidebar() {
     >
       <div
         style={{
-          fontFamily: '"Luckiest Guy", cursive',
+          fontFamily: '"Barriecito", cursive',
           fontSize: "1.6rem",
           padding: "24px 20px",
           color: "#a4cea6",

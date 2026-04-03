@@ -37,7 +37,7 @@ const styles = {
     borderBottom: "1px solid #e0d8cb",
   },
   title: {
-    fontFamily: '"Luckiest Guy", cursive',
+    fontFamily: '"Barriecito", cursive',
     fontSize: "1.4rem",
     color: "#04324b",
     margin: 0,
@@ -115,7 +115,7 @@ const styles = {
     cursor: "pointer",
     color: "#888",
     fontSize: "0.9rem",
-    fontFamily: '"Luckiest Guy", cursive',
+    fontFamily: '"Barriecito", cursive',
     transition: "border-color 0.2s, color 0.2s",
   },
   noPhoto: {

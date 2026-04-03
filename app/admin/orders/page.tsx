@@ -43,7 +43,7 @@ export default function AdminOrdersPage() {
   return (
     <div>
       <div style={{ display: "flex", alignItems: "center", marginBottom: 24 }}>
-        <h2 style={{ fontFamily: '"Luckiest Guy", cursive', fontSize: "1.8rem", color: "#04324b", margin: 0 }}>Orders</h2>
+        <h2 style={{ fontFamily: '"Barriecito", cursive', fontSize: "1.8rem", color: "#04324b", margin: 0 }}>Orders</h2>
       </div>
 
       {loading ? (

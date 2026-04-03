@@ -9,7 +9,7 @@ const FONT_OPTIONS = [
   "Bungee",
   "Rubik Mono One",
   "Passion One",
-  "Luckiest Guy",
+  "Barriecito",
   "Fugaz One",
 ];
 

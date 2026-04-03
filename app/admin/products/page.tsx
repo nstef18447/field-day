@@ -13,7 +13,7 @@ const styles = {
     marginBottom: 24,
   } as React.CSSProperties,
   pageTitle: {
-    fontFamily: '"Luckiest Guy", cursive',
+    fontFamily: '"Barriecito", cursive',
     fontSize: "1.8rem",
     color: "#04324b",
     margin: 0,
@@ -24,7 +24,7 @@ const styles = {
     border: "none",
     padding: "10px 20px",
     borderRadius: 8,
-    fontFamily: '"Luckiest Guy", cursive',
+    fontFamily: '"Barriecito", cursive',
     fontSize: "1rem",
     cursor: "pointer",
   } as React.CSSProperties,

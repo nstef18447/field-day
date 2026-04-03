@@ -32,7 +32,7 @@ export default async function ProductDetailPage({ params }: Props) {
                 display: "inline-block",
                 background: "#04324b",
                 color: "#fff",
-                fontFamily: '"Luckiest Guy", cursive',
+                fontFamily: '"Barriecito", cursive',
                 fontSize: "0.85rem",
                 padding: "4px 14px",
                 borderRadius: 20,
