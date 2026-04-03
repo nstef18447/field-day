@@ -25,15 +25,14 @@ export default function Footer() {
         <div className="footer-col">
           <h4>Company</h4>
           <Link href="/#about">Our Story</Link>
-          <Link href="/#contact">Contact</Link>
+          <Link href="mailto:hello@fielddayfelt.com">hello@fielddayfelt.com</Link>
           <Link href="#">Shipping &amp; Returns</Link>
           <Link href="#">FAQ</Link>
         </div>
         <div className="footer-col">
           <h4>Follow Along</h4>
-          <Link href="#">Instagram</Link>
-          <Link href="#">Pinterest</Link>
-          <Link href="#">TikTok</Link>
+          <Link href="https://instagram.com/fielddayfelt" target="_blank">Instagram</Link>
+          <Link href="https://tiktok.com/@fielddayfelt" target="_blank">TikTok</Link>
         </div>
       </div>
       <p className="footer-bottom">&copy; 2026 Field Day. All rights reserved. Made with love and felt.</p>
