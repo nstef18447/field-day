@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Product, ProductVariant } from "@/app/types";
 import { useCart } from "@/app/context/CartContext";
+import { drawFeltLetter } from "@/lib/drawFeltLetter";
 
 const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const NUMBERS = "0123456789".split("");
@@ -19,6 +20,7 @@ export default function ProductCustomizer({ product }: ProductCustomizerProps) {
   const [tab, setTab] = useState<"letters" | "numbers">("letters");
   const [loading, setLoading] = useState(true);
   const [animatingChar, setAnimatingChar] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     async function fetchVariants() {
@@ -36,18 +38,12 @@ export default function ProductCustomizer({ product }: ProductCustomizerProps) {
     fetchVariants();
   }, [product.id]);
 
-  // Dynamically load the Google Font for the selected variant
+  // Draw felt-textured character on canvas when character or color changes
   useEffect(() => {
-    if (!selectedVariant) return;
-    const fontFamily = selectedVariant.character_font.replace(/ /g, "+");
-    const linkId = `font-${fontFamily}`;
-    if (document.getElementById(linkId)) return;
-    const link = document.createElement("link");
-    link.id = linkId;
-    link.rel = "stylesheet";
-    link.href = `https://fonts.googleapis.com/css2?family=${fontFamily}&display=swap`;
-    document.head.appendChild(link);
-  }, [selectedVariant]);
+    const canvas = canvasRef.current;
+    if (!canvas || !selectedChar || !selectedVariant) return;
+    drawFeltLetter(canvas, selectedChar, selectedVariant.character_color);
+  }, [selectedChar, selectedVariant?.character_color, selectedVariant]);
 
   function handleSelectChar(char: string) {
     setSelectedChar(char);
@@ -92,21 +88,18 @@ export default function ProductCustomizer({ product }: ProductCustomizerProps) {
             <div className="customizer-photo-placeholder">No photo</div>
           )}
           {selectedChar && selectedVariant && (
-            <div
+            <canvas
+              ref={canvasRef}
+              width={300}
+              height={300}
               className={`customizer-char-overlay${animatingChar ? " customizer-char-animate" : ""}`}
               style={{
                 left: `${selectedVariant.character_position_x}%`,
                 top: `${selectedVariant.character_position_y}%`,
-                fontFamily: `"${selectedVariant.character_font}", sans-serif`,
-                fontSize: `${selectedVariant.character_size}vw`,
-                color: selectedVariant.character_color,
-                WebkitTextStroke: selectedVariant.character_stroke_color
-                  ? `${selectedVariant.character_stroke_width || 0}px ${selectedVariant.character_stroke_color}`
-                  : undefined,
+                width: `${selectedVariant.character_size}vw`,
+                height: `${selectedVariant.character_size}vw`,
               }}
-            >
-              {selectedChar}
-            </div>
+            />
           )}
         </div>
       </div>
