@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { ProductVariant } from "@/app/types";
 import ImageUploader from "./ImageUploader";
-import { drawFeltLetter } from "@/lib/drawFeltLetter";
+import { drawFeltLetter, loadGoogleFont } from "@/lib/drawFeltLetter";
 
 const FONT_OPTIONS = [
   "Lilita One",
@@ -61,8 +61,11 @@ export default function VariantForm({ productId, variant, onSave, onClose }: Var
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas || !previewChar) return;
-    drawFeltLetter(canvas, previewChar, form.character_color);
-  }, [previewChar, form.character_color]);
+    const font = form.character_font;
+    loadGoogleFont(font).then(() => {
+      drawFeltLetter(canvas, previewChar, form.character_color, font);
+    });
+  }, [previewChar, form.character_color, form.character_font]);
 
   function updateField(field: string, value: string | number | boolean) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -113,8 +116,7 @@ export default function VariantForm({ productId, variant, onSave, onClose }: Var
     }
   }
 
-  // Font link kept for potential future use with character_font field
-  const fontLink = `https://fonts.googleapis.com/css2?family=${form.character_font.replace(/ /g, "+")}&display=swap`;
+  // Font loading is handled by loadGoogleFont in the useEffect
 
   return (
     <div className="admin-modal-overlay" onClick={onClose}>
@@ -123,8 +125,6 @@ export default function VariantForm({ productId, variant, onSave, onClose }: Var
         style={{ maxWidth: 800 }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-        <link rel="stylesheet" href={fontLink} />
         <div className="admin-modal-header">
           <h2>{variant ? "Edit Color Scheme" : "New Color Scheme"}</h2>
           <button onClick={onClose} className="admin-modal-close">

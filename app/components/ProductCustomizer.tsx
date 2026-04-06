@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { Product, ProductVariant } from "@/app/types";
 import { useCart } from "@/app/context/CartContext";
-import { drawFeltLetter } from "@/lib/drawFeltLetter";
+import { drawFeltLetter, loadGoogleFont } from "@/lib/drawFeltLetter";
 
 const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const NUMBERS = "0123456789".split("");
@@ -38,12 +38,15 @@ export default function ProductCustomizer({ product }: ProductCustomizerProps) {
     fetchVariants();
   }, [product.id]);
 
-  // Draw felt-textured character on canvas when character or color changes
+  // Draw felt-textured character on canvas when character, color, or font changes
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas || !selectedChar || !selectedVariant) return;
-    drawFeltLetter(canvas, selectedChar, selectedVariant.character_color);
-  }, [selectedChar, selectedVariant?.character_color, selectedVariant]);
+    const font = selectedVariant.character_font;
+    loadGoogleFont(font).then(() => {
+      drawFeltLetter(canvas, selectedChar, selectedVariant.character_color, font);
+    });
+  }, [selectedChar, selectedVariant?.character_color, selectedVariant?.character_font, selectedVariant]);
 
   function handleSelectChar(char: string) {
     setSelectedChar(char);

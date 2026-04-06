@@ -72,10 +72,29 @@ function hexToRgb(hex: string): [number, number, number] {
   ];
 }
 
+/** Load a Google Font and resolve once it's ready for canvas use */
+export function loadGoogleFont(fontFamily: string): Promise<void> {
+  const id = `font-${fontFamily.replace(/ /g, "+")}`;
+  if (!document.getElementById(id)) {
+    const link = document.createElement("link");
+    link.id = id;
+    link.rel = "stylesheet";
+    link.href = `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/ /g, "+")}&display=swap`;
+    document.head.appendChild(link);
+  }
+  // Use FontFaceSet API to wait until the font is actually loaded
+  if (document.fonts?.load) {
+    return document.fonts.load(`bold 48px "${fontFamily}"`).then(() => {});
+  }
+  // Fallback: short delay for older browsers
+  return new Promise((r) => setTimeout(r, 200));
+}
+
 export function drawFeltLetter(
   canvas: HTMLCanvasElement,
   letter: string,
-  color: string
+  color: string,
+  font?: string
 ): void {
   const w = canvas.width;
   const h = canvas.height;
@@ -93,7 +112,8 @@ export function drawFeltLetter(
   const maskCtx = maskCanvas.getContext("2d")!;
 
   const fontSize = h * 0.62;
-  maskCtx.font = `bold ${fontSize}px Georgia, "Times New Roman", serif`;
+  const fontFace = font ? `"${font}", Georgia, serif` : `Georgia, "Times New Roman", serif`;
+  maskCtx.font = `bold ${fontSize}px ${fontFace}`;
   maskCtx.textAlign = "center";
   maskCtx.textBaseline = "middle";
   maskCtx.fillStyle = "#000";
