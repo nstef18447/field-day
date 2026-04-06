@@ -22,6 +22,9 @@ export interface ProductVariant {
   character_position_x: number;
   character_position_y: number;
   character_size: number;
+  stripe_color_1: string;
+  stripe_color_2: string;
+  stripe_color_3: string;
   is_active?: boolean;
   sort_order: number;
   created_at?: string;

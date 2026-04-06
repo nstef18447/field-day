@@ -21,6 +21,9 @@ export async function PUT(
     character_position_x,
     character_position_y,
     character_size,
+    stripe_color_1,
+    stripe_color_2,
+    stripe_color_3,
     is_active,
     sort_order,
   } = body;
@@ -37,6 +40,9 @@ export async function PUT(
       character_position_x,
       character_position_y,
       character_size,
+      stripe_color_1: stripe_color_1 || "#04324b",
+      stripe_color_2: stripe_color_2 || "#a4cea6",
+      stripe_color_3: stripe_color_3 || "#c97a4a",
       is_active,
       sort_order,
     })

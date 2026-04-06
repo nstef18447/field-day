@@ -200,13 +200,6 @@ a.product-card { text-decoration: none; color: inherit; display: block; }
 .product-img-wrap {
   position: relative; overflow: hidden; aspect-ratio: 1;
   background-color: #e8ddd0;
-  background-image:
-    linear-gradient(45deg, #d4c7b7 25%, transparent 25%),
-    linear-gradient(-45deg, #d4c7b7 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #d4c7b7 75%),
-    linear-gradient(-45deg, transparent 75%, #d4c7b7 75%);
-  background-size: 20px 20px;
-  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
   display: flex; align-items: center; justify-content: center;
 }
 .product-emoji {

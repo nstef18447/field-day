@@ -54,6 +54,9 @@ create table product_variants (
   character_position_x numeric(5,2) not null default 50,
   character_position_y numeric(5,2) not null default 50,
   character_size numeric(5,2) not null default 20,
+  stripe_color_1 text not null default '#04324b',
+  stripe_color_2 text not null default '#a4cea6',
+  stripe_color_3 text not null default '#c97a4a',
   is_active boolean not null default true,
   sort_order integer not null default 0,
   created_at timestamptz not null default now()

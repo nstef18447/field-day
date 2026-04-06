@@ -31,6 +31,9 @@ const defaultVariant = {
   character_position_x: 50,
   character_position_y: 50,
   character_size: 20,
+  stripe_color_1: "#04324b",
+  stripe_color_2: "#a4cea6",
+  stripe_color_3: "#c97a4a",
   is_active: true,
   sort_order: 0,
 };
@@ -48,6 +51,9 @@ export default function VariantForm({ productId, variant, onSave, onClose }: Var
           character_position_x: variant.character_position_x,
           character_position_y: variant.character_position_y,
           character_size: variant.character_size,
+          stripe_color_1: variant.stripe_color_1 || "#04324b",
+          stripe_color_2: variant.stripe_color_2 || "#a4cea6",
+          stripe_color_3: variant.stripe_color_3 || "#c97a4a",
           is_active: variant.is_active ?? true,
           sort_order: variant.sort_order,
         }
@@ -121,6 +127,9 @@ export default function VariantForm({ productId, variant, onSave, onClose }: Var
         character_position_x: form.character_position_x,
         character_position_y: form.character_position_y,
         character_size: form.character_size,
+        stripe_color_1: form.stripe_color_1,
+        stripe_color_2: form.stripe_color_2,
+        stripe_color_3: form.stripe_color_3,
         is_active: form.is_active,
         sort_order: form.sort_order,
       };
@@ -314,6 +323,44 @@ export default function VariantForm({ productId, variant, onSave, onClose }: Var
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Card Stripe Colors */}
+          <div style={{ borderTop: "1px solid #e0d8cb", paddingTop: 16 }}>
+            <label style={{ fontSize: "0.85rem", fontWeight: 600, color: "#04324b", marginBottom: 12, display: "block" }}>
+              Card Background Stripes
+            </label>
+            <div className="admin-form-row">
+              {([
+                ["stripe_color_1", "Stripe 1"],
+                ["stripe_color_2", "Stripe 2"],
+                ["stripe_color_3", "Stripe 3"],
+              ] as const).map(([field, label]) => (
+                <div className="admin-form-group" key={field}>
+                  <label>{label}</label>
+                  <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                    <input
+                      type="color"
+                      value={(form as Record<string, unknown>)[field] as string}
+                      onChange={(e) => updateField(field, e.target.value)}
+                      style={{ width: 40, height: 36, padding: 2, border: "1px solid #ddd", borderRadius: 6, cursor: "pointer" }}
+                    />
+                    <input
+                      type="text"
+                      value={(form as Record<string, unknown>)[field] as string}
+                      onChange={(e) => updateField(field, e.target.value)}
+                      style={{ flex: 1 }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div style={{
+              marginTop: 8,
+              height: 24,
+              borderRadius: 6,
+              background: `linear-gradient(135deg, ${form.stripe_color_1} 0%, ${form.stripe_color_1} 33%, ${form.stripe_color_2} 33%, ${form.stripe_color_2} 66%, ${form.stripe_color_3} 66%, ${form.stripe_color_3} 100%)`,
+            }} />
           </div>
 
           {/* Position & Size controls */}

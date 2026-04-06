@@ -5,14 +5,20 @@ import ProductCard from "./ProductCard";
 export default async function ShopSection() {
   const products = await getProducts();
 
-  // For products without images, try to get the first variant photo
+  // For products without images, try to get the first variant photo + stripe colors
   const fallbackImages: Record<number, string> = {};
+  const stripeColors: Record<number, [string, string, string]> = {};
   for (const product of products) {
-    if (!product.images || product.images.length === 0) {
-      const variants = await getVariantsByProductId(product.id);
-      if (variants.length > 0 && variants[0].photo) {
-        fallbackImages[product.id] = variants[0].photo;
+    const variants = await getVariantsByProductId(product.id);
+    if (variants.length > 0) {
+      if (!product.images || product.images.length === 0) {
+        if (variants[0].photo) fallbackImages[product.id] = variants[0].photo;
       }
+      stripeColors[product.id] = [
+        variants[0].stripe_color_1,
+        variants[0].stripe_color_2,
+        variants[0].stripe_color_3,
+      ];
     }
   }
 
@@ -26,6 +32,7 @@ export default async function ShopSection() {
             key={product.id}
             product={product}
             fallbackImage={fallbackImages[product.id]}
+            stripeColors={stripeColors[product.id]}
           />
         ))}
       </div>
