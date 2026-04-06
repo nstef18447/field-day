@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ProductVariant } from "@/app/types";
 import ImageUploader from "./ImageUploader";
+import { drawFeltLetter } from "@/lib/drawFeltLetter";
 
 const FONT_OPTIONS = [
   "Lilita One",
@@ -55,6 +56,13 @@ export default function VariantForm({ productId, variant, onSave, onClose }: Var
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [previewChar, setPreviewChar] = useState("A");
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || !previewChar) return;
+    drawFeltLetter(canvas, previewChar, form.character_color);
+  }, [previewChar, form.character_color]);
 
   function updateField(field: string, value: string | number | boolean) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -105,7 +113,7 @@ export default function VariantForm({ productId, variant, onSave, onClose }: Var
     }
   }
 
-  // Load the selected Google Font for preview
+  // Font link kept for potential future use with character_font field
   const fontLink = `https://fonts.googleapis.com/css2?family=${form.character_font.replace(/ /g, "+")}&display=swap`;
 
   return (
@@ -163,26 +171,22 @@ export default function VariantForm({ productId, variant, onSave, onClose }: Var
                     Upload a photo first
                   </div>
                 )}
-                {/* Character overlay */}
-                <div
+                {/* Character overlay — felt texture canvas */}
+                <canvas
+                  ref={canvasRef}
+                  width={300}
+                  height={300}
                   style={{
                     position: "absolute",
                     left: `${form.character_position_x}%`,
                     top: `${form.character_position_y}%`,
                     transform: "translate(-50%, -50%)",
-                    fontFamily: `"${form.character_font}", sans-serif`,
-                    fontSize: `${form.character_size}vw`,
-                    color: form.character_color,
-                    WebkitTextStroke: form.character_stroke_color
-                      ? `${form.character_stroke_width}px ${form.character_stroke_color}`
-                      : undefined,
-                    lineHeight: 1,
+                    width: `${form.character_size}vw`,
+                    height: `${form.character_size}vw`,
                     pointerEvents: "none",
                     userSelect: "none",
                   }}
-                >
-                  {previewChar}
-                </div>
+                />
               </div>
               <div className="admin-form-group" style={{ marginTop: 8 }}>
                 <label>Preview Character</label>
