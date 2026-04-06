@@ -154,11 +154,12 @@ export default function ProductCustomizer({ product }: ProductCustomizerProps) {
                 onClick={() => setSelectedVariant(v)}
                 title={v.name}
               >
-                {v.photo ? (
-                  <img src={v.photo} alt={v.name} />
-                ) : (
-                  <span style={{ fontSize: "0.6rem", color: "#888" }}>?</span>
-                )}
+                <div style={{
+                  width: "100%",
+                  height: "100%",
+                  borderRadius: "inherit",
+                  background: `linear-gradient(135deg, ${v.stripe_color_1} 0%, ${v.stripe_color_1} 33%, ${v.stripe_color_2} 33%, ${v.stripe_color_2} 66%, ${v.stripe_color_3} 66%, ${v.stripe_color_3} 100%)`,
+                }} />
               </button>
             ))}
           </div>
