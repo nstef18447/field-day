@@ -96,8 +96,8 @@ export default function ProductCustomizer({ product }: ProductCustomizerProps) {
               style={{
                 left: `${selectedVariant.character_position_x}%`,
                 top: `${selectedVariant.character_position_y}%`,
-                width: `${selectedVariant.character_size}vw`,
-                height: `${selectedVariant.character_size}vw`,
+                width: `${selectedVariant.character_size}%`,
+                height: `${selectedVariant.character_size}%`,
               }}
             />
           )}

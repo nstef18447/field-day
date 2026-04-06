@@ -697,10 +697,8 @@ footer { background: var(--color-navy-dark); color: var(--color-cream); padding:
 .customizer-char-overlay {
   position: absolute;
   transform: translate(-50%, -50%);
-  line-height: 1;
   pointer-events: none;
   user-select: none;
-  transition: color 0.3s, font-family 0.3s;
 }
 .customizer-char-animate {
   animation: charPop 0.3s ease-out;
@@ -821,7 +819,7 @@ footer { background: var(--color-navy-dark); color: var(--color-cream); padding:
     position: static;
   }
   .customizer-char-overlay {
-    font-size: clamp(40px, 15vw, 80px) !important;
+    /* canvas sizing is percentage-based, no font-size override needed */
   }
 }
 

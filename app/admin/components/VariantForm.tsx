@@ -181,8 +181,8 @@ export default function VariantForm({ productId, variant, onSave, onClose }: Var
                     left: `${form.character_position_x}%`,
                     top: `${form.character_position_y}%`,
                     transform: "translate(-50%, -50%)",
-                    width: `${form.character_size}vw`,
-                    height: `${form.character_size}vw`,
+                    width: `${form.character_size}%`,
+                    height: `${form.character_size}%`,
                     pointerEvents: "none",
                     userSelect: "none",
                   }}
@@ -318,7 +318,7 @@ export default function VariantForm({ productId, variant, onSave, onClose }: Var
                 />
               </div>
               <div className="admin-form-group">
-                <label>Size ({form.character_size}vw)</label>
+                <label>Size ({form.character_size}%)</label>
                 <input
                   type="range"
                   min={5}
