@@ -56,7 +56,35 @@ export default function VariantForm({ productId, variant, onSave, onClose }: Var
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [previewChar, setPreviewChar] = useState("A");
+  const [transparentPhoto, setTransparentPhoto] = useState<string | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // Remove white background from product photo (same as storefront)
+  useEffect(() => {
+    if (!form.photo) {
+      setTransparentPhoto(null);
+      return;
+    }
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      const c = document.createElement("canvas");
+      c.width = img.naturalWidth;
+      c.height = img.naturalHeight;
+      const ctx = c.getContext("2d")!;
+      ctx.drawImage(img, 0, 0);
+      const data = ctx.getImageData(0, 0, c.width, c.height);
+      const px = data.data;
+      for (let i = 0; i < px.length; i += 4) {
+        if (px[i] > 230 && px[i + 1] > 230 && px[i + 2] > 230) {
+          px[i + 3] = 0;
+        }
+      }
+      ctx.putImageData(data, 0, 0);
+      setTransparentPhoto(c.toDataURL("image/png"));
+    };
+    img.src = form.photo;
+  }, [form.photo]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -143,18 +171,17 @@ export default function VariantForm({ productId, variant, onSave, onClose }: Var
                 style={{
                   position: "relative",
                   width: "100%",
-                  aspectRatio: "1",
-                  background: "#eee",
+                  background: "transparent",
                   borderRadius: 12,
-                  overflow: "hidden",
+                  overflow: "visible",
                   border: "1px solid #ddd",
                 }}
               >
                 {form.photo ? (
                   <img
-                    src={form.photo}
+                    src={transparentPhoto || form.photo}
                     alt="Variant preview"
-                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    style={{ width: "100%", height: "auto", display: "block", borderRadius: 12 }}
                   />
                 ) : (
                   <div
