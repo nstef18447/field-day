@@ -20,7 +20,37 @@ export default function ProductCustomizer({ product }: ProductCustomizerProps) {
   const [tab, setTab] = useState<"letters" | "numbers">("letters");
   const [loading, setLoading] = useState(true);
   const [animatingChar, setAnimatingChar] = useState(false);
+  const [transparentPhoto, setTransparentPhoto] = useState<string | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // Remove white background from product photo
+  useEffect(() => {
+    if (!selectedVariant?.photo) {
+      setTransparentPhoto(null);
+      return;
+    }
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      const c = document.createElement("canvas");
+      c.width = img.naturalWidth;
+      c.height = img.naturalHeight;
+      const ctx = c.getContext("2d")!;
+      ctx.drawImage(img, 0, 0);
+      const data = ctx.getImageData(0, 0, c.width, c.height);
+      const px = data.data;
+      for (let i = 0; i < px.length; i += 4) {
+        const r = px[i], g = px[i + 1], b = px[i + 2];
+        // Treat near-white pixels as background
+        if (r > 230 && g > 230 && b > 230) {
+          px[i + 3] = 0;
+        }
+      }
+      ctx.putImageData(data, 0, 0);
+      setTransparentPhoto(c.toDataURL("image/png"));
+    };
+    img.src = selectedVariant.photo;
+  }, [selectedVariant?.photo]);
 
   useEffect(() => {
     async function fetchVariants() {
@@ -83,7 +113,7 @@ export default function ProductCustomizer({ product }: ProductCustomizerProps) {
         <div className="customizer-photo-wrap">
           {selectedVariant?.photo ? (
             <img
-              src={selectedVariant.photo}
+              src={transparentPhoto || selectedVariant.photo}
               alt={selectedVariant.name}
               className="customizer-photo"
             />

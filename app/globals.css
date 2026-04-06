@@ -674,16 +674,15 @@ footer { background: var(--color-navy-dark); color: var(--color-cream); padding:
 }
 .customizer-photo-wrap {
   position: relative;
-  aspect-ratio: 1;
   border-radius: 20px;
-  overflow: hidden;
-  background: #e8ddd0;
+  overflow: visible;
+  background: transparent;
 }
 .customizer-photo {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   display: block;
+  border-radius: 20px;
 }
 .customizer-photo-placeholder {
   width: 100%;
