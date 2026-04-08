@@ -13,6 +13,11 @@ interface ProductFormProps {
 const emptyProduct = {
   name: "",
   description: "",
+  detail: "",
+  materials: "",
+  size: "",
+  hanging: "",
+  shipping: "",
   price_dollars: "",
   badge: "",
   max_custom_chars: 0,
@@ -36,6 +41,11 @@ export default function ProductForm({ product, onSave, onClose }: ProductFormPro
       ? {
           name: product.name,
           description: product.description,
+          detail: product.detail || "",
+          materials: product.materials || "",
+          size: product.size || "",
+          hanging: product.hanging || "",
+          shipping: product.shipping || "",
           price_dollars: centsToDollars(product.price_cents),
           badge: product.badge || "",
           max_custom_chars: product.max_custom_chars || 0,
@@ -65,6 +75,11 @@ export default function ProductForm({ product, onSave, onClose }: ProductFormPro
       const payload = {
         name: form.name,
         description: form.description,
+        detail: form.detail,
+        materials: form.materials,
+        size: form.size,
+        hanging: form.hanging,
+        shipping: form.shipping,
         price_cents: dollarsToCents(form.price_dollars),
         badge: form.badge,
         max_custom_chars: form.badge === "Customizable" ? form.max_custom_chars : 0,
@@ -110,12 +125,65 @@ export default function ProductForm({ product, onSave, onClose }: ProductFormPro
           </div>
 
           <div className="admin-form-group">
-            <label>Description</label>
+            <label>Card Description</label>
             <textarea
               value={form.description}
               onChange={(e) => updateField("description", e.target.value)}
-              rows={3}
+              rows={2}
+              placeholder="Short description shown on product cards"
             />
+          </div>
+
+          <div className="admin-form-group">
+            <label>Full Description</label>
+            <textarea
+              value={form.detail}
+              onChange={(e) => updateField("detail", e.target.value)}
+              rows={4}
+              placeholder="Longer description shown on the product detail page"
+            />
+          </div>
+
+          <div style={{ borderTop: "1px solid #e0d8cb", paddingTop: 16, marginTop: 8 }}>
+            <label style={{ fontSize: "0.85rem", fontWeight: 600, color: "#04324b", marginBottom: 12, display: "block" }}>
+              Product Details
+            </label>
+            <div className="admin-form-group">
+              <label>Materials</label>
+              <input
+                type="text"
+                value={form.materials}
+                onChange={(e) => updateField("materials", e.target.value)}
+                placeholder="e.g. Merino wool & viscose felt blend"
+              />
+            </div>
+            <div className="admin-form-group">
+              <label>Size</label>
+              <input
+                type="text"
+                value={form.size}
+                onChange={(e) => updateField("size", e.target.value)}
+                placeholder='e.g. 4" wide x 6.5" long'
+              />
+            </div>
+            <div className="admin-form-group">
+              <label>Hanging</label>
+              <input
+                type="text"
+                value={form.hanging}
+                onChange={(e) => updateField("hanging", e.target.value)}
+                placeholder="e.g. Handstitched felt tab on the back"
+              />
+            </div>
+            <div className="admin-form-group">
+              <label>Shipping</label>
+              <input
+                type="text"
+                value={form.shipping}
+                onChange={(e) => updateField("shipping", e.target.value)}
+                placeholder="e.g. Ships within 5-7 business days"
+              />
+            </div>
           </div>
 
           <div className="admin-form-row">

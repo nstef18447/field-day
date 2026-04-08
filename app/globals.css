@@ -587,7 +587,24 @@ footer { background: var(--color-navy-dark); color: var(--color-cream); padding:
   line-height: 1.8;
   color: var(--color-sage);
   font-weight: 300;
+  margin-bottom: 24px;
+}
+.product-specs {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 16px;
   margin-bottom: 32px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.product-specs dt {
+  font-weight: 600;
+  color: var(--color-navy);
+}
+.product-specs dd {
+  margin: 0;
+  color: var(--color-navy);
+  opacity: 0.8;
 }
 .product-detail-actions {
   margin-top: auto;

@@ -69,7 +69,16 @@ export default async function ProductDetailPage({ params }: Props) {
             {product.badge && <span className="badge">{product.badge}</span>}
             <h1 className="product-detail-name">{product.name}</h1>
             <p className="product-detail-price">{isComingSoon ? "Coming Soon" : price}</p>
-            <p className="product-detail-desc">{product.description}</p>
+            <p className="product-detail-desc">{product.detail || product.description}</p>
+
+            {(product.materials || product.size || product.hanging || product.shipping) && (
+              <dl className="product-specs">
+                {product.materials && <><dt>Materials</dt><dd>{product.materials}</dd></>}
+                {product.size && <><dt>Size</dt><dd>{product.size}</dd></>}
+                {product.hanging && <><dt>Hanging</dt><dd>{product.hanging}</dd></>}
+                {product.shipping && <><dt>Shipping</dt><dd>{product.shipping}</dd></>}
+              </dl>
+            )}
 
             {!isComingSoon && <ProductDetailActions product={product} />}
           </div>

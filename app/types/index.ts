@@ -2,6 +2,11 @@ export interface Product {
   id: number;
   name: string;
   description: string;
+  detail?: string;
+  materials?: string;
+  size?: string;
+  hanging?: string;
+  shipping?: string;
   price_cents: number;
   badge?: string;
   images?: string[];

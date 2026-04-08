@@ -141,7 +141,20 @@ export default function ProductCustomizer({ product }: ProductCustomizerProps) {
       <div className="customizer-controls">
         <h1 className="product-detail-name">{product.name}</h1>
         <p className="product-detail-price">{price}</p>
-        <p className="product-detail-desc">{product.description}</p>
+        {product.detail ? (
+          <p className="product-detail-desc">{product.detail}</p>
+        ) : (
+          <p className="product-detail-desc">{product.description}</p>
+        )}
+
+        {(product.materials || product.size || product.hanging || product.shipping) && (
+          <dl className="product-specs">
+            {product.materials && <><dt>Materials</dt><dd>{product.materials}</dd></>}
+            {product.size && <><dt>Size</dt><dd>{product.size}</dd></>}
+            {product.hanging && <><dt>Hanging</dt><dd>{product.hanging}</dd></>}
+            {product.shipping && <><dt>Shipping</dt><dd>{product.shipping}</dd></>}
+          </dl>
+        )}
 
         {/* Color scheme selector */}
         <div className="customizer-section">
